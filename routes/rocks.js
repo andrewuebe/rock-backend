@@ -16,7 +16,7 @@ router.route('/last').get((req, res) => {
 router.route('/report/:id').post((req, res) => {
     var id = req.params.id
 
-    Rock.updateOne({_id:id},{"isReported": true})
+    Rock.updateOne({_id:id},{"isReported": true} )
     .then(docs => {
         if(docs) {
             res.send("Painting was succesfully reported. Thank you.")

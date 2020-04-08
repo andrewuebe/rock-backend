@@ -7,6 +7,7 @@ html
             each rock in rocks
                 div(class='reported-rock' key=rock._id style='width: calc( 33% - 2rem); max-width: 400px; margin-right: 2rem;')
                     img(src=rock.canvasImgData style='width: 100%')
+                    div #{rock.numOfReports}
                     form(method='POST', action=`/rocks/delete/${rock._id}`)
                         button(type='submit').
                             delete painting
