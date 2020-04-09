@@ -2,18 +2,24 @@ const router = require('express').Router();
 let Rock = require('../models/rock.model');
 
 router.route('/').get((req, res) => {
+    res.send("OK this works at least");
+    /*
+    console.log("you got to /rocks");
     Rock.find()
         .then(rocks => res.json(rocks))
         .catch(err => res.status(400).json('Error: ' + err));
+    */
 });
 
 router.route('/last').get((req, res) => {
+    console.log("you got to /rocks/last");
     Rock.findOne({ }, null,{ "sort": { "_id": -1 } })
         .then(rocks => res.json(rocks))
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
 router.route('/report/:id').post((req, res) => {
+    console.log("you got to /rocks/:id");
     var id = req.params.id
 
     Rock.updateOne({_id:id},{"isReported": true} )
@@ -30,6 +36,7 @@ router.route('/report/:id').post((req, res) => {
 })
 
 router.route('/unreport/:id').post((req, res) => {
+    console.log("you got to /rocks/unreport");
     var id = req.params.id
 
     Rock.updateOne({_id:id},{"isReported": false})
@@ -64,6 +71,7 @@ router.route('/delete/:id').post((req, res) => {
 /* PAINTING WITH 4 ON IT: 5e8e2b1395c3c16f0158f9ef */
 
 router.route('/reported').get((req, res) => {
+    console.log("you got to /rocks/reported");
     Rock.find({ $or:[ {'isReported':"true"}, {'isReported':true} ]})
     .then(rocks => {
         res.render('reports', {
@@ -73,15 +81,6 @@ router.route('/reported').get((req, res) => {
         })
     })
     .catch(err => res.status(400).json('Error: ' + err));
-})
-
-router.route('/updatewithreportnums').post((req, res) => {
-    Rock.update(
-        {_id: 'uid'}, 
-        {vehicle_status : 'vehicleSatus' },
-        {multi:true}, 
-          function(err, numberAffected){  
-          });
 })
 
 router.route('/add').post((req, res) => {
