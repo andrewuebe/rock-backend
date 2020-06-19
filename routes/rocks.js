@@ -2,18 +2,22 @@ const router = require('express').Router();
 let Rock = require('../models/rock.model');
 
 router.route('/').get((req, res) => {
-    res.send("OK this works at least");
-    /*
-    console.log("you got to /rocks");
     Rock.find()
         .then(rocks => res.json(rocks))
         .catch(err => res.status(400).json('Error: ' + err));
-    */
 });
 
 router.route('/last').get((req, res) => {
     console.log("you got to /rocks/last");
     Rock.findOne({ }, null,{ "sort": { "_id": -1 } })
+        .then(rocks => res.json(rocks))
+        .catch(err => res.status(400).json('Error: ' + err));
+})
+
+router.route('/:id').get((req, res) => {
+    console.log("you got to a specific rock via id");
+    var id = req.params.id;
+    Rock.findOne({"_id": id})
         .then(rocks => res.json(rocks))
         .catch(err => res.status(400).json('Error: ' + err));
 })
