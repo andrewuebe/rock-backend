@@ -14,14 +14,6 @@ router.route('/last').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 })
 
-router.route('/:id').get((req, res) => {
-    console.log("you got to a specific rock via id");
-    var id = req.params.id;
-    Rock.findOne({"_id": id})
-        .then(rocks => res.json(rocks))
-        .catch(err => res.status(400).json('Error: ' + err));
-})
-
 router.route('/report/:id').post((req, res) => {
     console.log("you got to /rocks/:id");
     var id = req.params.id
@@ -85,6 +77,14 @@ router.route('/reported').get((req, res) => {
         })
     })
     .catch(err => res.status(400).json('Error: ' + err));
+})
+
+router.route('/:id').get((req, res) => {
+    console.log("you got to a specific rock via id");
+    var id = req.params.id;
+    Rock.findOne({"_id": id})
+        .then(rocks => res.json(rocks))
+        .catch(err => res.status(400).json('Error: ' + err));
 })
 
 router.route('/add').post((req, res) => {

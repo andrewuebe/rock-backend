@@ -2,7 +2,7 @@ html
     head
         title= title
     body
-        hi= message
+        h1= message
         div(class='reported-rocks' style='display: flex; box-sizing: border-box; padding: 3rem 1rem 3rem 3rem; width: 100%; justify-content: start; flex-wrap: wrap;')
             each rock in rocks
                 div(class='reported-rock' key=rock._id style='width: calc( 33% - 2rem); max-width: 400px; margin-right: 2rem;')
