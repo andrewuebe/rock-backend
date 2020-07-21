@@ -79,6 +79,28 @@ router.route('/reported').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 })
 
+router.route('/see-all').get((req, res) => {
+    console.log("you got to /rocks/see-all");
+    Rock.find()
+    .then(rocks => {
+        res.render('all-paintings', {
+            title: 'All Rocks',
+            message: 'All Paintings!',
+            rocks: rocks
+        })
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+})
+
+router.route('/last-eighteen').get((req, res) => {
+    console.log("you got to /rocks/last-eighteen");
+    Rock.find()
+    .sort({'_id': -1})
+    .limit(18)
+    .then(rocks => res.json(rocks))
+    .catch(err => res.status(400).json('Error: ' + err))
+})
+
 router.route('/:id').get((req, res) => {
     console.log("you got to a specific rock via id");
     var id = req.params.id;
@@ -93,13 +115,17 @@ router.route('/add').post((req, res) => {
     const canvasImgData = req.body.canvasImgData;
     const isReported = false;
     const numOfReports = req.body.numOfReports;
+    const paintedOverName = req.body.paintedOverName;
+    const paintedOverId = req.body.paintedOverId;
 
     const newRock = new Rock({
         lastModifiedDate,
         painterName,
         canvasImgData,
         isReported,
-        numOfReports
+        numOfReports,
+        paintedOverName,
+        paintedOverId
     });
 
     newRock.save()

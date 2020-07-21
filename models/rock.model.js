@@ -22,6 +22,14 @@ const rockSchema = new Schema({
     numOfReports: {
         type: Number,
         required: true
+    },
+    paintedOverName: {
+        type: String,
+        required: true
+    },
+    paintedOverId: {
+        type: String,
+        required: true
     }
 });
 
